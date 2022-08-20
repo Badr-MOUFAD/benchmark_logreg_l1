@@ -1,5 +1,4 @@
 import warnings
-
 from benchopt import BaseSolver, safe_import_context
 
 
@@ -9,17 +8,12 @@ with safe_import_context() as import_ctx:
 
 
 class Solver(BaseSolver):
+
     name = 'sklearn'
 
-    install_cmd = 'conda'
-    requirements = ['scikit-learn']
-
     parameters = {
-        'solver': [
-            # 'saga',
-            'liblinear'],
+        'solver': ['liblinear'],
     }
-    parameter_template = "{solver}"
 
     def set_objective(self, X, y, lmbd):
         self.X, self.y, self.lmbd = X, y, lmbd
@@ -29,7 +23,7 @@ class Solver(BaseSolver):
         self.clf = LogisticRegression(
             solver=self.solver, C=1 / self.lmbd,
             penalty='l1', fit_intercept=False,
-            tol=1e-12)
+            tol=1e-9)
 
     def run(self, n_iter):
         self.clf.max_iter = n_iter

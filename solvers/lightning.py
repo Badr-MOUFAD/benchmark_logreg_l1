@@ -6,7 +6,8 @@ with safe_import_context() as import_ctx:
 
 
 class Solver(BaseSolver):
-    name = 'Lightning'
+
+    name = 'lightning'
 
     install_cmd = 'conda'
     requirements = [
