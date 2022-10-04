@@ -1,8 +1,6 @@
-celer
-scikit-learn
-git+https://github.com/benchopt/benchopt.git@main
 pytest
+scikit-learn
 libsvmdata
-git+https://github.com/Badr-MOUFAD/skglm.git@add-pn-solver
+git+https://github.com/benchopt/benchopt.git@main
 git+https://github.com/tbjohns/BlitzL1.git@master
-sklearn-contrib-lightning
+git+https://github.com/Badr-MOUFAD/skglm.git@pn-intercept

@@ -5,16 +5,15 @@ from benchopt import BaseObjective
 
 
 class Objective(BaseObjective):
+
     name = "Sparse Logistic Regression"
 
     parameters = {
-        'fit_intercept': [False],
         'reg': [1, 1e-1, 1e-2, 5*1e-3]
     }
 
-    def __init__(self, reg=.1, fit_intercept=False):
+    def __init__(self, reg=.1):
         self.reg = reg
-        self.fit_intercept = fit_intercept
 
     def set_data(self, X, y):
         if set(y) != set([-1, 1]):
@@ -24,15 +23,12 @@ class Objective(BaseObjective):
         self.X, self.y = X, y
         self.lmbd = self.reg * self._get_lambda_max()
 
-    def get_one_solution(self):
-        n_features = self.X.shape[1]
-        if self.fit_intercept:
-            n_features += 1
-        return np.zeros(n_features)
+    def compute(self, solution):
+        beta = solution[:-1]
+        intercept = solution[-1]
 
-    def compute(self, beta):
         beta = beta.flatten().astype(np.float64)
-        y_X_beta = self.y * (self.X @ beta)
+        y_X_beta = self.y * (self.X @ beta + intercept)
         l1 = abs(beta).sum()
         return np.log(1 + np.exp(-y_X_beta)).sum() + self.lmbd * l1
 

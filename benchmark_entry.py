@@ -7,10 +7,10 @@ run_benchmark(benchmark_logreg, max_runs=25,
               n_jobs=1, n_repetitions=1,
               solver_names=[
                   "blitz",
-                  "sklearn",
-                  "celer",
+                  "PN-skglm",
+                  #   "sklearn",
+                  #   "celer",
                   #   'lightning',
-                  'PN-skglm', 'PN-skglm-improved'
               ],
               dataset_names=[
                   'simulated',
